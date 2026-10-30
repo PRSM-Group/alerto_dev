@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 
-import '../features/map/presentation/screens/map_screen.dart';
+import 'package:alerto_dev/app/router.dart';
 
 class AlertoApp extends StatelessWidget {
   const AlertoApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'ALERTO',
       debugShowCheckedModeBanner: false,
-
+      routerConfig: router,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
-
-      home: const MapScreen(),
     );
   }
 }
