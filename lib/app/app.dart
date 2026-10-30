@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:alerto_dev/app/router.dart';
 
 class AlertoApp extends StatelessWidget {
