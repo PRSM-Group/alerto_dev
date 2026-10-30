@@ -22,6 +22,20 @@ class AlertoApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TEMPORARY BYPASS: Force true for development
+    const bool bypassAuth = true;
+
+    if (bypassAuth) {
+      return MaterialApp(
+        title: 'ALERTO',
+        theme: ThemeData(useMaterial3: true),
+        // Point directly to your map screen during development
+        home: const Scaffold(
+          body: Center(child: Text('ALERTO Map (Auth Bypassed)')),
+        ),
+      );
+    }
+
     final authStateAsync = ref.watch(authStateStreamProvider);
 
     return MaterialApp(
