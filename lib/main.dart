@@ -9,7 +9,7 @@ void main() async {
 
   await Supabase.initialize(
     url: 'https://lzosxcfevifbeznkxojb.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6b3N4Y2ZldmlmYmV6bmt4b2piIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzNTc1NTQsImV4cCI6MjEwODkzMzU1NH0.pwo-vY6dQqZt6DGAjdAsPqyUKFt-M1Iu8qFPlJV_FrE',
+    publishableKey: 'sb_publishable_iqUGDRJ8m8FY1JrlLToYgw_NSyB9hV3',
   );
   runApp(const ProviderScope(child: AlertoApp()));
 }

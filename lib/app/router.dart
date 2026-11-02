@@ -16,11 +16,11 @@ final routerProvider = Provider<GoRouter>((ref) {
   final refreshNotifier = _RouterRefreshNotifier();
 
   ref.listen(authStateStreamProvider, (previous, next) {
-    refreshNotifier.notifyListeners();
+    refreshNotifier.triggerRefresh();
   });
 
   final router = GoRouter(
-    initialLocation: '/map',
+    initialLocation: '/login',
     refreshListenable: refreshNotifier,
 
     redirect: (context, state) {
@@ -83,7 +83,11 @@ final routerProvider = Provider<GoRouter>((ref) {
   return router;
 });
 
-class _RouterRefreshNotifier extends ChangeNotifier {}
+class _RouterRefreshNotifier extends ChangeNotifier {
+  void triggerRefresh() {
+    notifyListeners();
+  }
+}
 
 class _LoadingScreen extends StatelessWidget {
   const _LoadingScreen();
