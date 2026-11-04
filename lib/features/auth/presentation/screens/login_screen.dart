@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../controllers/auth_controller.dart';
 
 import 'package:alerto_dev/theme/app_colors.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -49,6 +50,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue<void>>(authControllerProvider, (previous, next) {
+      if (previous?.isLoading == true && !next.isLoading && !next.hasError) {
+        context.go('/map');
+      }
+      if (next.hasError && !next.isLoading) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Login failed: ${next.error}')));
+      }
+    });
+
     final authState = ref.watch(authControllerProvider);
     final screenHeight = MediaQuery.of(context).size.height;
 
