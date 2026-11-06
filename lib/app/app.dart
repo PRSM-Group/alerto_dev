@@ -13,10 +13,7 @@ class AlertoApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: router,
 
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-        useMaterial3: true,
-      ),
+      theme: ThemeData(useMaterial3: true, fontFamily: 'GoogleSansFlex'),
     );
   }
 }
