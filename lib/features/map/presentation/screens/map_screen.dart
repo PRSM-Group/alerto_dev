@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:maplibre_gl/maplibre_gl.dart';
+
+import '../widgets/map_bottom_sheet.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -16,6 +19,12 @@ class _MapScreenState extends State<MapScreen> {
     14.627608835785841,
     121.04075568714347,
   );
+
+  Future<String> _loadMapStyle() async {
+    return await rootBundle.loadString(
+      'lib/features/map/assets/map_style.json',
+    );
+  }
 
   final Map<String, dynamic> kamuningBoundary = {
     'type': 'FeatureCollection',
@@ -81,124 +90,41 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          // MAP
-          MapLibreMap(
-            styleString:
-                'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+    return FutureBuilder<String>(
+      future: _loadMapStyle(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
 
-            initialCameraPosition: const CameraPosition(
-              target: kamuningCenter,
-              zoom: 16,
+        if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(
+              child: Text('Unable to load map style: ${snapshot.error}'),
+            ),
+          );
+        }
+
+        return Stack(
+          children: [
+            MapLibreMap(
+              styleString: snapshot.data!,
+              initialCameraPosition: const CameraPosition(
+                target: kamuningCenter,
+                zoom: 15,
+              ),
+              onMapCreated: (controller) {
+                _mapController = controller;
+              },
+              onStyleLoadedCallback: _onStyleLoaded,
             ),
 
-            onMapCreated: (controller) {
-              _mapController = controller;
-            },
-
-            onStyleLoadedCallback: _onStyleLoaded,
-
-            // keeps map interactive
-            rotateGesturesEnabled: true,
-            scrollGesturesEnabled: true,
-            zoomGesturesEnabled: true,
-            tiltGesturesEnabled: true,
-          ),
-
-          // BOTTOM SHEET
-          DraggableScrollableSheet(
-            initialChildSize: 0.14,
-            minChildSize: 0.12,
-            maxChildSize: 0.50,
-            builder: (context, scrollController) {
-              return Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10,
-                      offset: Offset(0, -3),
-                    ),
-                  ],
-                ),
-
-                child: ListView(
-                  controller: scrollController,
-                  padding: const EdgeInsets.all(20),
-                  children: [
-                    // Drag handle
-                    Center(
-                      child: Container(
-                        width: 40,
-                        height: 5,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade400,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    const SizedBox(height: 8),
-
-                    const Text(
-                      'Environmental Vulnerability Map',
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    const Text(
-                      'Road Status',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8),
-
-                    const Text('lorem'),
-
-                    const SizedBox(height: 24),
-
-                    const Text(
-                      'Facilities',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8),
-
-                    const Text('loreeem'),
-
-                    const SizedBox(height: 24),
-
-                    const Text(
-                      'Routes',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8),
-
-                    const Text('lorem ipsum dolor sit amet.'),
-                  ],
-                ),
-              );
-            },
-          ),
-        ],
-      ),
+            const MapBottomSheet(),
+          ],
+        );
+      },
     );
   }
 }
