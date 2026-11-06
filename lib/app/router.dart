@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/map/presentation/screens/map_screen.dart';
+import '../features/reports/presentation/screens/report_screen.dart';
 
 // for now
 // if gagawa na tayo frfr we use shellroute apparently for the switching between tabs and shi
@@ -71,6 +72,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/map',
         name: 'Map',
         builder: (context, state) => const MapScreen(),
+      ),
+      GoRoute(
+        path: '/report',
+        name: 'Report',
+        builder: (context, state) => const ReportScreen(),
       ),
     ],
   );
