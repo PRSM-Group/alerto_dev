@@ -52,7 +52,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     ref.listen<AsyncValue<void>>(authControllerProvider, (previous, next) {
       if (previous?.isLoading == true && !next.isLoading && !next.hasError) {
-        context.go('/map');
+        context.go('/profile');
       }
       if (next.hasError && !next.isLoading) {
         ScaffoldMessenger.of(
