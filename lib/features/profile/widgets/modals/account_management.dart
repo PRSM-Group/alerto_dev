@@ -18,10 +18,21 @@ class AccountManagement extends StatelessWidget {
           child: ListView(
             controller: scrollController,
             padding: const EdgeInsets.all(24),
-            children: const [
-              Text(
-                'Account Management',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  const SizedBox(width: 4),
+                  const Text(
+                    'Account Management',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ],
           ),
