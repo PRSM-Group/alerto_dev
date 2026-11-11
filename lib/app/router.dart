@@ -2,10 +2,12 @@ import 'package:alerto_dev/core/providers/providers.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:alerto_dev/app/main_shell.dart';
 
 import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/map/presentation/screens/map_screen.dart';
 import '../features/reports/presentation/screens/report_screen.dart';
+import '../features/contacts/presentation/screens/contacts_screen.dart';
 import '../features/profile/presentation/screens/profile_tab.dart';
 
 // for now
@@ -69,20 +71,47 @@ final routerProvider = Provider<GoRouter>((ref) {
         name: 'Login',
         builder: (context, state) => const LoginScreen(),
       ),
-      GoRoute(
-        path: '/map',
-        name: 'Map',
-        builder: (context, state) => const MapScreen(),
-      ),
-      GoRoute(
-        path: '/report',
-        name: 'Report',
-        builder: (context, state) => const ReportScreen(),
-      ),
-      GoRoute(
-        path: '/profile',
-        name: 'Profile',
-        builder: (context, state) => const ProfileTab(),
+
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navShell) => MainShell(navShell: navShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/map',
+                name: 'Map',
+                builder: (context, state) => const MapScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/report',
+                name: 'Report',
+                builder: (context, state) => const ReportScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/contacts',
+                name: 'Contacts',
+                builder: (context, state) => const ContactsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/profile',
+                name: 'Profile',
+                builder: (context, state) => const ProfileTab(),
+              ),
+            ],
+          ),
+        ],
       ),
     ],
   );
