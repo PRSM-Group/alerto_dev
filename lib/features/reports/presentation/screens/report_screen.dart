@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../widgets/post_container.dart';
+import '../tabs/latest_posts.dart';
 
 class ReportScreen extends ConsumerWidget {
   const ReportScreen({super.key});
@@ -64,7 +64,7 @@ class ReportScreen extends ConsumerWidget {
             ],
           ),
         ),
-        body: PostContainer(),
+        body: LatestPostsTab(),
       ),
     );
   }

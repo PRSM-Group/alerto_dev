@@ -6,21 +6,35 @@ class PostContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
-        color: Colors.grey[200],
-
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('@danaln'), Text('7h ago')],
+              children: [
+                Text('@danaln', style: TextStyle(fontSize: 12.0)),
+                Text('7h ago', style: TextStyle(fontSize: 12.0)),
+              ],
             ),
-            Text('This is a sample post content.'),
-            Text('Lorem ipsum lorem ipsum lorem ipsum'),
-            const SizedBox(height: 15.0),
+            const SizedBox(height: 5.0),
+
+            Text(
+              'Mag-ingat sa weirdos sa Mercury malapit sa EDSA, lmao lmao mga manyakis.',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                height: 1.2,
+              ),
+            ),
+            const SizedBox(height: 5.0),
+            Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+            ),
+            const SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -33,7 +47,10 @@ class PostContainer extends StatelessWidget {
                     color: Colors.grey[300],
                     borderRadius: BorderRadius.circular(50.0),
                   ),
-                  child: Text('Suspicious Peopleasdasdasdasdasdasdasd'),
+                  child: Text(
+                    'Suspicious People',
+                    style: TextStyle(fontSize: 12.0),
+                  ),
                 ),
 
                 Text('27'),
