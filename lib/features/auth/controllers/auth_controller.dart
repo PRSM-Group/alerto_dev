@@ -38,10 +38,8 @@ class AuthController extends AsyncNotifier<void> {
           name: 'auth.error',
           error: e,
         );
-        // Re-throw so Riverpod's AsyncValue captures the error state for UI display
         rethrow;
       } catch (e, stackTrace) {
-        // Catch-all for unexpected local/network errors
         developer.log(
           'LOGIN ERROR: An unexpected error occurred: $e',
           name: 'auth.error',

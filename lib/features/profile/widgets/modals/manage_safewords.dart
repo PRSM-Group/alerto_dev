@@ -27,12 +27,21 @@ class ManageSafewords extends StatelessWidget {
                     constraints: const BoxConstraints(),
                     onPressed: () => Navigator.pop(context),
                   ),
-                  const SizedBox(width: 4),
+                  const SizedBox(height: 8),
                   const Text(
                     'Manage Safewords',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Record three phrases to activate the location sharing function and alert. Swipe to delete a safeword.',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey.shade600,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
               const SizedBox(height: 24),
             ],

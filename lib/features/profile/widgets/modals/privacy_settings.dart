@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
-class PrivacySettings extends StatelessWidget {
+import '../../widgets/privacy_toggle.dart';
+
+class PrivacySettings extends StatefulWidget {
   const PrivacySettings({super.key});
+
+  @override
+  State<PrivacySettings> createState() => _PrivacySettingsState();
+}
+
+class _PrivacySettingsState extends State<PrivacySettings> {
+  bool _locationSharing = true;
+  bool _microphoneAccess = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +37,34 @@ class PrivacySettings extends StatelessWidget {
                     constraints: const BoxConstraints(),
                     onPressed: () => Navigator.pop(context),
                   ),
-                  const SizedBox(width: 4),
+                  const SizedBox(height: 8),
                   const Text(
                     'Privacy Settings',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Manage your privacy settings.',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey.shade600,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              const SizedBox(height: 24),
+              PrivacyToggleItem(
+                title: 'Location Sharing',
+                value: _locationSharing,
+                onChanged: (val) => setState(() => _locationSharing = val),
+              ),
+              const SizedBox(height: 8),
+
+              PrivacyToggleItem(
+                title: 'Microphone Access',
+                value: _microphoneAccess,
+                onChanged: (val) => setState(() => _microphoneAccess = val),
               ),
             ],
           ),

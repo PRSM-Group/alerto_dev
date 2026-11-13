@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/profile_action_card.dart';
+
 class AccountManagement extends StatelessWidget {
   const AccountManagement({super.key});
 
@@ -27,12 +29,38 @@ class AccountManagement extends StatelessWidget {
                     constraints: const BoxConstraints(),
                     onPressed: () => Navigator.pop(context),
                   ),
-                  const SizedBox(width: 4),
+                  const SizedBox(height: 8),
                   const Text(
                     'Account Management',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Manage your account.',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey.shade600,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              ProfileActionCard(
+                icon: Icons.person_remove_outlined,
+                title: 'Delete Account',
+                subtitle: 'Permanently delete account and all data.',
+                textColor: Colors.red.shade700,
+                onTap: () {},
+              ),
+              const SizedBox(height: 12),
+
+              ProfileActionCard(
+                icon: Icons.help_outline,
+                title: 'Help Desk',
+                subtitle: 'Contact our staff for assistance',
+                onTap: () {},
               ),
             ],
           ),
