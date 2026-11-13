@@ -6,6 +6,8 @@ import '../../controllers/auth_controller.dart';
 import 'package:alerto_dev/theme/app_colors.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../utils/helpers/ui_helpers.dart';
+
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
@@ -55,9 +57,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         context.go('/profile');
       }
       if (next.hasError && !next.isLoading) {
-        ScaffoldMessenger.of(
+        UiHelpers.showErrorSnackBar(
           context,
-        ).showSnackBar(SnackBar(content: Text('Login failed: ${next.error}')));
+          'Authentication failed: ${next.error}',
+        );
       }
     });
 
@@ -148,8 +151,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               "Already have an account? Log In",
                               style: TextStyle(
                                 color: Colors.grey,
-
                                 decoration: TextDecoration.underline,
+                                decorationColor: Colors.grey,
                               ),
                             ),
                           ),
@@ -235,16 +238,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 ),
                               ),
 
-                        if (authState.hasError)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 12.0),
-                            child: Text(
-                              'Error: ${authState.error}',
-                              style: const TextStyle(color: Colors.red),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-
                         const SizedBox(height: 16),
 
                         Center(
@@ -261,6 +254,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               style: const TextStyle(
                                 color: Colors.grey,
                                 decoration: TextDecoration.underline,
+                                decorationColor: Colors.grey,
                               ),
                             ),
                           ),
@@ -285,6 +279,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return TextField(
       controller: controller,
       obscureText: obscure,
+      cursorColor: AppColors.primaryColor,
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
@@ -299,6 +294,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey[300]!),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: AppColors.primaryColor),
         ),
       ),
     );
